@@ -133,3 +133,4 @@ dmypy.json
 /config/emailconf.py
 /static
 /uploads
+/media
