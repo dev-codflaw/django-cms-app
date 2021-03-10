@@ -5,7 +5,7 @@ from django.db import models
 
 class CarouselSlide(models.Model):
     slide_name = models.CharField(max_length=150)
-    slide_img = models.ImageField(upload_to="uploads/slider")
+    slide_img = models.ImageField(upload_to="carousel/slider")
     slide_slug = models.SlugField()
     title_on_slide = models.CharField(max_length=250, blank=True, null=True)
     desc_on_slide = models.TextField(max_length=500, blank=True, null=True)

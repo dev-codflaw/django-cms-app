@@ -19,7 +19,7 @@ class Tag(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=150)
     slug = models.SlugField()
-    image = models.ImageField(upload_to="uploads/cat_images", blank=True, null=True)
+    image = models.ImageField(upload_to="category/images", blank=True, null=True)
     description = models.TextField(blank=True)
     status = models.BooleanField(default=True)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='children', on_delete=models.DO_NOTHING)
@@ -42,7 +42,7 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=250)
     subtitle = models.CharField(max_length=500, blank=True)
-    image = models.ImageField(upload_to="uploads/posts", blank=True, null=True)
+    image = models.ImageField(upload_to="posts/images", blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, max_length=250)
     description = RichTextField(blank=True, null=True)
     status = models.BooleanField(default=True)
