@@ -132,3 +132,4 @@ dmypy.json
 /config/dbconf.py
 /config/emailconf.py
 /static
+/uploads
