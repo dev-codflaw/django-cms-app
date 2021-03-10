@@ -131,3 +131,4 @@ dmypy.json
 /config/siteconf.py
 /config/dbconf.py
 /config/emailconf.py
+/static
