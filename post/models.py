@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
+from tinymce.models import HTMLField
 
 
 class Tag(models.Model):
@@ -44,7 +45,8 @@ class Post(models.Model):
     subtitle = models.CharField(max_length=500, blank=True)
     image = models.ImageField(upload_to="posts/images", blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, max_length=250)
-    description = RichTextField(blank=True, null=True)
+    # description = RichTextField(blank=True, null=True) # for ckeditor 
+    description = HTMLField(blank=True, null=True) # for tinymce
     status = models.BooleanField(default=True)
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)

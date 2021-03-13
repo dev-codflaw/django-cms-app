@@ -33,6 +33,9 @@ INSTALLED_APPS = [
     'ckeditor',
     'corsheaders',
     'carousel',
+    'tinymce',
+    'disposable_email',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +135,7 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True

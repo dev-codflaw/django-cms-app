@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('hello.urls')),
     path('', include('post.urls')),
     path('carousel/', include('carousel.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.DEBUG:
