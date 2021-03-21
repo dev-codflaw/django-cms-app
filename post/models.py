@@ -47,8 +47,9 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, blank=True, max_length=250)
     # description = RichTextField(blank=True, null=True) # for ckeditor 
     description = HTMLField(blank=True, null=True) # for tinymce
-    status = models.BooleanField(default=True)
+    tags = models.ManyToManyField(Tag, blank=True)
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.DO_NOTHING)
+    status = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

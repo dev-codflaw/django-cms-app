@@ -27,6 +27,17 @@ class PostList(APIView):
         return Response(request.data)
 
 
+class LatestPostList(APIView):
+    # permission_classes = (AllowAny)
+
+    def get(self, request):
+        queryset = Post.objects.all().order_by('-id')[:5]
+        serialized_content = PostSerializer(queryset, many=True)
+        # print(serializer.data)
+        # content = {'data': 'post content'}
+        return Response(serialized_content.data)
+    
+
 
 class PostDetail(APIView):
 
