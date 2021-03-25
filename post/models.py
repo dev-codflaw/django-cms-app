@@ -27,6 +27,11 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
     def __str__(self):                           
         full_path = [self.name]                  
         k = self.parent
@@ -41,12 +46,13 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=250)
-    subtitle = models.CharField(max_length=500, blank=True)
+    title = models.CharField(max_length=500)
+    keyword = models.CharField(max_length=250, blank=True, help_text="SEO keyword")
+    description = models.TextField(max_length=500, blank=True, help_text="SEO description")
     image = models.ImageField(upload_to="posts/images", blank=True, null=True)
-    slug = models.SlugField(unique=True, blank=True, max_length=250)
-    # description = RichTextField(blank=True, null=True) # for ckeditor 
-    description = HTMLField(blank=True, null=True) # for tinymce
+    slug = models.SlugField(unique=True, blank=True, max_length=250, help_text="Autogenrated on behald of title text")
+    content = RichTextField(blank=True, null=True) # for ckeditor 
+    # content = HTMLField(blank=True, null=True) # for tinymce
     tags = models.ManyToManyField(Tag, blank=True)
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.DO_NOTHING)
     status = models.BooleanField(default=True)
