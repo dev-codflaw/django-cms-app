@@ -20,7 +20,7 @@ class Tag(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=150)
-    slug = models.SlugField(unique=True, max_length=250, help_text="Make your own slug or it will be copy from title.")
+    slug = models.SlugField(unique=True, blank=True, max_length=250, help_text="Make your own slug or it will be copy from title.")
     image = models.ImageField(upload_to="category/images", blank=True, null=True)
     description = models.TextField(blank=True)
     status = models.BooleanField(default=True)
@@ -52,7 +52,7 @@ class Post(models.Model):
     keyword = models.CharField(max_length=250, blank=True, help_text="SEO keyword")
     description = models.TextField(max_length=500, blank=True, help_text="SEO description")
     image = models.ImageField(upload_to="posts/images", blank=True, null=True)
-    slug = models.SlugField(unique=True, max_length=250, help_text="Make your own slug or it will be copy from title.")
+    slug = models.SlugField(unique=True, blank=True, max_length=250, help_text="Make your own slug or it will be copy from title.")
     content = RichTextField(blank=True, null=True) # for ckeditor 
     # content = HTMLField(blank=True, null=True) # for tinymce
     tags = models.ManyToManyField(Tag, blank=True)
