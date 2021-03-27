@@ -6,7 +6,7 @@ from .serializers import PostSerializer, CategorySerializer, TagSerializer
 from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 
-class PostList(APIView):
+class ArticleList(APIView):
     # permission_classes = (AllowAny)
 
     def get(self, request):
@@ -27,7 +27,7 @@ class PostList(APIView):
         return Response(request.data)
 
 
-class LatestPostList(APIView):
+class LatestArticleList(APIView):
     # permission_classes = (AllowAny)
 
     def get(self, request):
@@ -39,7 +39,7 @@ class LatestPostList(APIView):
     
 
 
-class PostDetail(APIView):
+class ArticleDetail(APIView):
 
     def get(self, request, slug):
         queryset = Post.objects.get(slug=slug)
@@ -51,7 +51,6 @@ class PostDetail(APIView):
 
 
 class CategoryList(APIView):
-
     def get(self, request):
         queryset = Category.objects.all()
         serialized_content = CategorySerializer(queryset, many=True)
@@ -59,9 +58,15 @@ class CategoryList(APIView):
         return Response(serialized_content.data)
 
 
+class CategoryWiseArticleList(APIView):
+    def get(self, request, slug):
+        queryset = Post.objects.filter(category__slug=slug)
+        serialized_content = PostSerializer(queryset, many=True)
+        return Response(serialized_content.data)
+
+
 
 class TagList(APIView):
-
     def get(self, request):
         queryset = Tag.objects.all()
         serialized_content = TagSerializer(queryset, many=True)

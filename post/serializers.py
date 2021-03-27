@@ -6,9 +6,17 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields ='__all__'
 
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+
 class PostSerializer(serializers.ModelSerializer):
     # description = serializers.SerializerMethodField()
     tags = TagSerializer(many=True, read_only=True)
+    category = CategorySerializer()
 
     # def get_description(self, instance):
     #     from django.utils.safestring import mark_safe
@@ -19,10 +27,5 @@ class PostSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = '__all__'
 
 
