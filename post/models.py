@@ -17,9 +17,10 @@ class Tag(models.Model):
     class Meta:
         db_table='tags'
 
+
 class Category(models.Model):
     name = models.CharField(max_length=150)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True, max_length=250, help_text="Make your own slug or it will be copy from title.")
     image = models.ImageField(upload_to="category/images", blank=True, null=True)
     description = models.TextField(blank=True)
     status = models.BooleanField(default=True)
@@ -29,7 +30,8 @@ class Category(models.Model):
 
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        if not self.slug:
+            self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
     def __str__(self):                           
@@ -50,7 +52,7 @@ class Post(models.Model):
     keyword = models.CharField(max_length=250, blank=True, help_text="SEO keyword")
     description = models.TextField(max_length=500, blank=True, help_text="SEO description")
     image = models.ImageField(upload_to="posts/images", blank=True, null=True)
-    slug = models.SlugField(unique=True, blank=True, max_length=250, help_text="Autogenrated on behald of title text")
+    slug = models.SlugField(unique=True, max_length=250, help_text="Make your own slug or it will be copy from title.")
     content = RichTextField(blank=True, null=True) # for ckeditor 
     # content = HTMLField(blank=True, null=True) # for tinymce
     tags = models.ManyToManyField(Tag, blank=True)
@@ -60,7 +62,8 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        if not self.slug:
+            self.slug = slugify(self.title)
         super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
