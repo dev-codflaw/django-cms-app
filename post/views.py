@@ -10,7 +10,7 @@ class ArticleList(APIView):
     # permission_classes = (AllowAny)
 
     def get(self, request):
-        queryset = Post.objects.all()
+        queryset = Post.objects.all().filter(status=True)
         serialized_content = PostSerializer(queryset, many=True)
         # print(serializer.data)
         # content = {'data': 'post content'}
@@ -31,7 +31,7 @@ class LatestArticleList(APIView):
     # permission_classes = (AllowAny)
 
     def get(self, request):
-        queryset = Post.objects.all().order_by('-id')[:10]
+        queryset = Post.objects.all().filter(status=True).order_by('-id')[:10]
         serialized_content = PostSerializer(queryset, many=True)
         # print(serializer.data)
         # content = {'data': 'post content'}
@@ -52,7 +52,7 @@ class ArticleDetail(APIView):
 
 class CategoryList(APIView):
     def get(self, request):
-        queryset = Category.objects.all()
+        queryset = Category.objects.all().filter(status=True)
         serialized_content = CategorySerializer(queryset, many=True)
         # content = {'category': 'all categories'}
         return Response(serialized_content.data)
@@ -60,7 +60,7 @@ class CategoryList(APIView):
 
 class CategoryWiseArticleList(APIView):
     def get(self, request, slug):
-        queryset = Post.objects.filter(category__slug=slug)
+        queryset = Post.objects.filter(category__slug=slug, status=True)
         serialized_content = PostSerializer(queryset, many=True)
         return Response(serialized_content.data)
 
@@ -68,6 +68,6 @@ class CategoryWiseArticleList(APIView):
 
 class TagList(APIView):
     def get(self, request):
-        queryset = Tag.objects.all()
+        queryset = Tag.objects.all().filter(status=True)
         serialized_content = TagSerializer(queryset, many=True)
         return Response(serialized_content.data)
